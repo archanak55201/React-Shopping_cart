@@ -1,14 +1,24 @@
 import React from "react";
 
-import { useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart } from './../redux/actions/cartActions';
 
 const Cart =()=>{
     const cartItems = useSelector((state) => state.cart.cartItems);
-    console.log(cartItems);
+    // console.log(cartItems);
     const val = cartItems.map((item)=>item.price);
-    console.log(val);
-    const total = val.reduce((total, amount) => total + amount); 
-    console.log(total);
+    // console.log(val);
+    const total = val.reduce((total, amount) => {return total + amount},0); 
+    // console.log(total);
+
+
+    // const cartItems = useSelector((state) => state.cart.cartItems);
+    const dispatch = useDispatch();
+  
+    const handleRemoveFromCart = (itemId) => {
+      dispatch(removeFromCart(itemId));
+    };
     return (
         <div className="product-cart">
 
@@ -23,10 +33,14 @@ const Cart =()=>{
                                 <p>Title :  {item.title}</p>
                                 <p>Price : ${item.price}</p>
                             </div>
-                            <button >Remove</button>
+                            <button onClick={() => handleRemoveFromCart(item.id)} >Remove</button>
                         </div>
 
                     ))}
+
+                    { total===0 && (
+                        <div ><h1>0 item in cart</h1></div>
+                    )}
                     
                 </div>
                 
