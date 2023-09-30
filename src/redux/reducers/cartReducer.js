@@ -29,6 +29,12 @@ const initialState = {
                 ...state,
                 cartItems: updatedCartItems,
             };
+    case 'CLEAR_CART':
+            // Clear the entire cart
+            return {
+                ...state,
+                cartItems: [],
+            };
     default:
             return state;
     }

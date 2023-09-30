@@ -13,4 +13,10 @@ export const addToCart = (item) => {
       payload: itemId,
     };
   };
+
+  export const clearCart = () => {
+    return {
+      type: 'CLEAR_CART',
+    };
+  };
   

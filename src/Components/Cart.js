@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from './../redux/actions/cartActions';
+import { removeFromCart ,clearCart} from './../redux/actions/cartActions';
 
 const Cart =()=>{
+    // const [total,setTotal] =useState(0);
     const cartItems = useSelector((state) => state.cart.cartItems);
     // console.log(cartItems);
     const val = cartItems.map((item)=>item.price);
     // console.log(val);
     const total = val.reduce((total, amount) => {return total + amount},0); 
     // console.log(total);
-
+    // if(total1){
+    //     setTotal(total1);
+    // }
 
     // const cartItems = useSelector((state) => state.cart.cartItems);
     const dispatch = useDispatch();
@@ -19,6 +22,12 @@ const Cart =()=>{
     const handleRemoveFromCart = (itemId) => {
       dispatch(removeFromCart(itemId));
     };
+
+    const handleClearCart = () => {
+        dispatch(clearCart());
+      };
+
+      
     return (
         <div className="product-cart">
 
@@ -67,7 +76,7 @@ const Cart =()=>{
                    
                 </table>
 
-                <button>Click to Checkout</button>
+                <button onClick={handleClearCart}>Click to Checkout</button>
             </div>
         </div>
     )
